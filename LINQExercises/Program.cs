@@ -83,20 +83,51 @@ namespace LINQExercises
 
       // Set Operators
       // Combine the results of two queries into a single result. 
-      // OR Produces a result set that is based on presence or abscense of equivelent elements. 
+      //// OR Produces a result set that is based on presence or abscense of equivelent elements. 
 
-      var numbers = new List<int>() { 8, 3, 11, 11, 9, 23, 9, 2, 7, 300 };
-      var badNumbers = new List<int>() { 6, 1, 13, 21, 5, 4, 31, 299, 9, 23 };
+      //var numbers = new List<int>() { 8, 3, 11, 11, 9, 23, 9, 2, 7, 300 };
+      //var badNumbers = new List<int>() { 6, 1, 13, 21, 5, 4, 31, 299, 9, 23 };
 
-      var onlyGoodNumbers = numbers.Except(badNumbers); // Combines into a single query where it takes all from List A except from List B. 
-      Console.WriteLine($"onlyGoodNumbers {String.Join(',', onlyGoodNumbers)}");
+      //var onlyGoodNumbers = numbers.Except(badNumbers); // Combines into a single query where it takes all from List A except from List B. 
+      //Console.WriteLine($"onlyGoodNumbers {String.Join(',', onlyGoodNumbers)}");
 
-      var uniqueNumbers = numbers.Distinct(); //removes the duplicate values
-      Console.WriteLine($"uniqueNumbers {String.Join(',', uniqueNumbers)}");
+      //var uniqueNumbers = numbers.Distinct(); //removes the duplicate values
+      //Console.WriteLine($"uniqueNumbers {String.Join(',', uniqueNumbers)}");
 
-      // Take the first three numbers, concat or combine that result with again taking numbers, skipping first 5, and taking the first 1 after (6th)
-      var firstThreeNumbersAndTheSixth = numbers.Take(3).Concat(numbers.Skip(5).Take(1));
-      Console.WriteLine($"First3and6th. {String.Join(',', firstThreeNumbersAndTheSixth)}");
+      //// Take the first three numbers, concat or combine that result with again taking numbers, skipping first 5, and taking the first 1 after (6th)
+      //var firstThreeNumbersAndTheSixth = numbers.Take(3).Concat(numbers.Skip(5).Take(1));
+      //Console.WriteLine($"First3and6th. {String.Join(',', firstThreeNumbersAndTheSixth)}");
+
+      var animals = new List<Animal>()
+      {
+        new Animal {Type = "Pikachu", WeightInPounds = 3, HeightInInches = 28 },
+        new Animal {Type = "Cthulu", WeightInPounds = 2500, HeightInInches = 798},
+        new Animal {Type = "Charzard", WeightInPounds = 25, HeightInInches = 40},
+        new Animal {Type = "Bulbasaur", WeightInPounds = 45, HeightInInches = 29}
+      };
+
+      // Filter the animals with a funciton
+      var animalsThatStartWithC = animals.Where(animal => animal.Type.ToLower().StartsWith('c'));
+      foreach (var animal in animalsThatStartWithC)
+      {
+        Console.WriteLine(animal.Type);
+      }
+
+      //Group a collection by a given key (based on a function)
+      // Group each animal based on a specific filter
+
+      var groupAnimals = animals.GroupBy(animal => animal.Type.First());
+
+      foreach (var animalGroup in groupAnimals)
+      {
+        Console.WriteLine($"Animals that start with {animalGroup.Key}");
+
+        foreach (var animal in animalGroup)
+        {
+          Console.WriteLine(animal.Type);
+        }
+      }
+
     }
   }
 }
